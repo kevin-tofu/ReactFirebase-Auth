@@ -1,20 +1,24 @@
 import React, { useState } from "react"
 import { Card, Button, Alert } from "react-bootstrap"
 import { useAuth } from "../contexts/AuthContext"
-import { Link, useHistory } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
+
 
 export default function Dashboard() {
   const [error, setError] = useState("")
   const { currentUser, logout } = useAuth()
-  const history = useHistory()
+  const history = useNavigate()
 
   async function handleLogout() {
     setError("")
 
     try {
+      console.log(currentUser)
       await logout()
-      history.push("/login")
-    } catch {
+      // history.push("/login")
+      history('/login')
+    } catch (e) {
+      // console.log(e)
       setError("Failed to log out")
     }
   }
