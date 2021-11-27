@@ -9,23 +9,25 @@ export default function Login() {
   const { login } = useAuth()
   const [error, setError] = useState("")
   const [loading, setLoading] = useState(false)
-  const history = useNavigate()
+  let navigate = useNavigate()
 
   async function handleSubmit(e) {
-    e.preventDefault()
 
+    e.preventDefault()
     try {
       setError("")
       setLoading(true)
       await login(emailRef.current.value, passwordRef.current.value)
-      // history.push("/")
-      history('/');
+      setLoading(false)
+      navigate('/');
+      // await new Promise(resolve => setTimeout(resolve, 3000))
+
     } catch (e) {
       // console.log(e)
       setError("Failed to log in")
+      setLoading(false)
+    } finally {
     }
-
-    setLoading(false)
   }
 
   return (
